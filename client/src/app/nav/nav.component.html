@@ -1,7 +1,8 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="container">
-      <a class="navbar-brand" href="#">Traveler Social App</a>
-        <ul class="navbar-nav mr-auto mb-2 mb-md-0">
+      <a class="navbar-brand" href="#">PMS</a>
+        
+      <ul class="navbar-nav mr-auto mb-2 mb-md-0" *ngIf="loggedIn" > <!--structural directive -->
           <li class="nav-item">
             <a class="nav-link" href="#">Search</a>
           </li>
@@ -11,16 +12,36 @@
           <li class="nav-item">
             <a class="nav-link" href="#">Messages</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" (click)="logout()">logout</a>
+          </li>
         </ul>
-        <form #loginForm ="ngForm" class="d-flex" (ngSubmit) = "login()">
+
+<div class="dropdown" *ngIf="loggedIn" dropdown>
+<a class="dropdown-toggle text-light" dropdownToggle>Welcome user </a>
+<div class="dropdown-menu mt-3" *dropdownMenu>
+<a class="dropdown-item">Edit Profile</a>
+<div class="dropdwon-divider"></div>
+<a class="dropdown-item" (click)="logout()">logout</a>
+</div>
+</div>
+
+        <form *ngIf="!loggedIn" #loginForm ="ngForm" class="d-flex" (ngSubmit) = "login()" autocomplete="off">
+
           <input name="username"
           [(ngModel)]="model.username"
           class="form-control mr-sm-2"
           type="text" 
           placeholder="User Name">
+
+
           <input name="password"
           [(ngModel)]="model.password"
-          class="form-control mr-sm-2" type="password" placeholder="Password">
+          class="form-control mr-sm-2" 
+          type="password" 
+          placeholder="Password">
+
+          
           <button class="btn btn-outline-success" type="submit">Login </button>
         </form>
       </div>
